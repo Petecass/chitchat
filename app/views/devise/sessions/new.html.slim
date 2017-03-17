@@ -1,0 +1,30 @@
+
+.ui.raised.very.padded.text.container.segment
+
+  h2
+    = t('.log_in')
+    
+  = form_for(resource, as: resource_name, 
+                       url: session_path(resource_name), 
+                       html: { class: 'ui form attached segment' }) do |f|
+    .field
+      = f.label :email
+      br
+      = f.email_field :email, autofocus: true
+      
+    .field
+      = f.label :password
+      br
+      = f.password_field :password, autocomplete: 'off'
+      
+    - if devise_mapping.rememberable?
+      .field
+        .ui.checkbox
+          = f.check_box :remember_me, class: 'hidden', tabIndex: '0'
+          = f.label :remember_me
+        
+    .actions
+      = f.submit t('.submit_button'), class: 'ui button primary'
+  
+  .ui.bottom.attached.warning.message
+    = render 'devise/shared/links'
